@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 const Navbar = () => {
-    const [openSidebar, setOpenSidebar] = useState(false)
+    const [openSidebar, setOpenSidebar] = useState(true)
 
   return (
     <>

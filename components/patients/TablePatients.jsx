@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
+import ModalPatients from './ModalPatients'
 
 const TablePatients = ({fields, patients}) => {
+    const [toggle, setToggle] = useState(false)
+
   return (
     <>
+    <ModalPatients toggle={toggle} setToggle={setToggle}/>
         <div className='px-1 md:px-16 lg:px-20'>
             <div className="flex items-center rounded-lg justify-between flex-column md:flex-row flex-wrap space-y-4 md:space-y-0 py-4 bg-white dark:bg-gray-900 mb-1">
                 {/* <div>
@@ -87,7 +91,15 @@ const TablePatients = ({fields, patients}) => {
                                     </td>
                                     <td className="px-6 py-4">
                                         {/* <!-- Modal toggle --> */}
-                                        <a href="#" type="button" data-modal-show="editPatientModal" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                        <a 
+                                            href="#" 
+                                            type="button" 
+                                            data-modal-show="editPatientModal" 
+                                            className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                                            onClick={() => setToggle(!toggle)}
+                                        >
+                                            Edit
+                                        </a>
                                     </td>
                                 </tr>
                             )

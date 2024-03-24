@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react'
 import TablePatients from '@/components/patients/TablePatients'
+import BreadCrumb from '@/components/BreadCrumb'
 
 const page = () => {
   const [fields, setFields] = useState([])
@@ -62,6 +63,9 @@ const page = () => {
         }
     ]
 
+    const routeList = ["Patients"]
+    const routeUrl = "/patients"
+
     useEffect(() => {
       setFields(initialFields)
       setPatients(initialData)
@@ -70,6 +74,7 @@ const page = () => {
 
   return (
     <>
+        <BreadCrumb routeList={routeList} routeUrl={routeUrl}/>
         <TablePatients fields={fields} patients={patients}/>
     </>
   )

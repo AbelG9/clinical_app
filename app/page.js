@@ -4,12 +4,13 @@ import { useState } from "react";
 import LoginNavbar from "@/components/LoginNavbar";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { login } from "../services/auth";
 
 export default function Home() {
   const router = useRouter()
 
   const initialState = {
-    email: '',
+    username: '',
     password: '',
   }
 
@@ -23,7 +24,20 @@ export default function Home() {
 
   const handleLogin = async (event) => {
     event.preventDefault();
-    router.push('/patients')
+    try {
+      const response = await login(form)
+
+      if (!response.data) {
+        router.push('/')
+        return
+      }
+
+      localStorage.setItem('auth-token', response.token)
+
+      router.push('/patients')
+    } catch(error) {
+      console.log(error)
+    }
   }
 
   return (
@@ -46,12 +60,12 @@ export default function Home() {
             </label>
             <input 
               type="email" 
-              id="email" 
+              id="username" 
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
               placeholder="jhondoe@mail.com"
-              name="email"
+              name="username"
               onChange={handleChange}
-              value={form.email}
+              value={form.username}
               required 
             />
           </div>

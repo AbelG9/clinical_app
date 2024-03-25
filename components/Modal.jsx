@@ -9,11 +9,11 @@ const Modal = ({ toggle, setToggle, fields, form, handleChange }) => {
             tabIndex="-1" 
             aria-hidden="true"
             data-modal-backdrop="static"
-            className={`${!toggle && 'hidden'} fixed bg-slate-900 bg-opacity-90 z-50 flex items-center justify-center w-full overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full px-auto`}
+            className={`${!toggle && 'hidden'} fixed bg-slate-900 bg-opacity-90 z-50 flex items-center justify-center w-full overflow-x-auto overflow-y-auto inset-0 max-h-full px-auto`}
         >
             <div className="relative w-full max-w-2xl max-h-full">
                 {/* <!-- Modal content --> */}
-                <form className="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                <form className="relative bg-white rounded-lg shadow dark:bg-gray-700 mx-auto w-5/6 md:w-full">
                     {/* <!-- Modal header --> */}
                     <div className="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
                         <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
@@ -54,7 +54,7 @@ const Modal = ({ toggle, setToggle, fields, form, handleChange }) => {
                                                 placeholder={field.label} 
                                                 value={form[field.fieldName]}
                                                 onChange={handleChange}
-                                                required="true" 
+                                                required={true} 
                                             />
                                         </div>
                                     )

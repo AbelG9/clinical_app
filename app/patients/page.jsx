@@ -1,13 +1,17 @@
 "use client"
 
 import React, { useEffect, useState } from 'react'
-import TablePatients from '@/components/patients/TablePatients'
 import BreadCrumb from '@/components/BreadCrumb'
+import CustomPatientsTable from '@/components/patients/CustomPatientsTable'
+import Modal from '@/components/Modal'
 
 const page = () => {
-  const [fields, setFields] = useState([])
+  const [patients, setPatients] = useState([])
+  const [tableFields, setTableFields] = useState([])
+  const [modalFields, setModalFields] = useState([])
+  const [form, setForm] = useState([])
 
-  const initialFields = 
+  const initialTableFields = 
     [
       "index",
       "patient",
@@ -18,9 +22,40 @@ const page = () => {
       "actions"
     ]
 
-    const [patients, setPatients] = useState([])
+    const initialModalFields = [
+      {
+        label: "Name",
+        fieldName: "name",
+        type: "text"
+      },
+      {
+        label: "Last Name",
+        fieldName: "lastname",
+        type: "text"
+      },
+      {
+        label: "Email",
+        fieldName: "email",
+        type: "email"
+      },
+      {
+        label: "Gender",
+        fieldName: "gender",
+        type: "text"
+      },
+      {
+        label: "Document Number",
+        fieldName: "num_documento",
+        type: "number"
+      },
+      {
+        label: "Phone Number",
+        fieldName: "phone_number",
+        type: "number"
+      }
+    ]
 
-    const initialData = [
+    const templatePatientsData = [
         {
             id: 1,
             name: "Abel",
@@ -29,7 +64,7 @@ const page = () => {
             gender: "Masculino",
             num_documento: 48451278,
             phone_number: 963258741,
-            status: "Activo"
+            status: 1
         },
         {
             id: 2,
@@ -39,7 +74,7 @@ const page = () => {
             gender: "Masculino",
             num_documento: 48451278,
             phone_number: 963258741,
-            status: "Activo"
+            status: 1
         },
         {
             id: 3,
@@ -49,7 +84,7 @@ const page = () => {
             gender: "Femenino",
             num_documento: 48451278,
             phone_number: 963258741,
-            status: "Inactivo"
+            status: 0
         },
         {
             id: 4,
@@ -59,23 +94,57 @@ const page = () => {
             gender: "Masculino",
             num_documento: 48451278,
             phone_number: 963258741,
-            status: "Activo"
+            status: 1
         }
     ]
+
+    const initialModalData = 
+      {
+        id: 0,
+        name: "",
+        lastname: "",
+        email: "",
+        gender: "",
+        num_documento: 0,
+        phone_number: 0,
+        status: 1
+      }
+
+      const handleChange = (event) => {
+        // console.log(event.target.name, event.target.value)
+        const { name, value } = event.target
+    
+        setForm({ ...form, [name]: value })
+      }
 
     const routeList = ["Patients"]
     const routeUrl = "/patients"
 
     useEffect(() => {
-      setFields(initialFields)
-      setPatients(initialData)
+      setTableFields(initialTableFields)
+      setModalFields(initialModalFields)
+      setPatients(templatePatientsData)
+      setForm(initialModalData)
     }, [])
     
+    const [toggle, setToggle] = useState(false)
 
   return (
     <>
         <BreadCrumb routeList={routeList} routeUrl={routeUrl}/>
-        <TablePatients fields={fields} patients={patients}/>
+        <Modal 
+          toggle={toggle} 
+          setToggle={setToggle}
+          fields={modalFields}
+          form={form}
+          handleChange={handleChange}
+        />
+        <CustomPatientsTable 
+          fields={tableFields} 
+          data={patients} 
+          toggle={toggle} 
+          setToggle={setToggle}
+        />
     </>
   )
 }

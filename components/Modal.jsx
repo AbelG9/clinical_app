@@ -1,11 +1,11 @@
 import React from 'react'
 
-const Modal = ({ toggle, setToggle, fields, form, handleChange }) => {
+const Modal = ({ toggle, setToggle, fields, form, handleChange, modalTitle }) => {
   return (
     <>
         {/* <!-- Edit user modal --> */}
         <div 
-            id="editModal" 
+            id="modal" 
             tabIndex="-1" 
             aria-hidden="true"
             data-modal-backdrop="static"
@@ -17,7 +17,7 @@ const Modal = ({ toggle, setToggle, fields, form, handleChange }) => {
                     {/* <!-- Modal header --> */}
                     <div className="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
                         <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-                            Edit
+                            {modalTitle}
                         </h3>
                     <button 
                         type="button" 

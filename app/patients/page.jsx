@@ -12,6 +12,7 @@ const page = () => {
   const [tableFields, setTableFields] = useState([])
   const [modalFields, setModalFields] = useState([])
   const [form, setForm] = useState([])
+  const [modalTitle, setModalTitle] = useState("")
 
   const initialModalData = 
     {
@@ -125,7 +126,6 @@ const page = () => {
       const getAllPatients = async() => {
         try {
           const response = await findAllPersons()
-          // console.log(response);
 
           if (!response.data) {
             if (response.code == 1004) {
@@ -158,12 +158,14 @@ const page = () => {
           fields={modalFields}
           form={form}
           handleChange={handleChange}
+          modalTitle={modalTitle}
         />
         <CustomPatientsTable 
           fields={tableFields} 
           data={patients} 
           toggle={toggle} 
           setToggle={setToggle}
+          setModalTitle={setModalTitle}
         />
     </>
   )

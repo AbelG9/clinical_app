@@ -6,3 +6,12 @@ Content-Type: application/json
   "username": "abelg@gmail.com",
   "password": "passwordabel"
 }
+
+### Signup
+POST http://localhost:8081/codigo/tecsup/v1/users/signUp
+Content-Type: application/json
+
+{
+  "username": "abel_guevara1@budgetapp.com",
+  "password": "passwordabel1"
+}

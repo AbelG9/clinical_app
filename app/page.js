@@ -34,7 +34,7 @@ export default function Home() {
         return
       }
 
-      localStorage.setItem('auth-token', response.token)
+      localStorage.setItem('auth-token', response.data)
 
       router.push('/patients')
       toast.info("Bienvenido!")

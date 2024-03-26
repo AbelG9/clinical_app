@@ -4,12 +4,26 @@ import React, { useEffect, useState } from 'react'
 import BreadCrumb from '@/components/BreadCrumb'
 import CustomPatientsTable from '@/components/patients/CustomPatientsTable'
 import Modal from '@/components/Modal'
+import { findAllPersons } from '@/services/patients'
+import { toast } from 'sonner'
 
 const page = () => {
   const [patients, setPatients] = useState([])
   const [tableFields, setTableFields] = useState([])
   const [modalFields, setModalFields] = useState([])
   const [form, setForm] = useState([])
+
+  const initialModalData = 
+    {
+      id: 0,
+      name: "",
+      lastname: "",
+      email: "",
+      gender: "",
+      num_documento: 0,
+      phone_number: 0,
+      status: 1
+    }
 
   const initialTableFields = 
     [
@@ -22,7 +36,7 @@ const page = () => {
       "actions"
     ]
 
-    const initialModalFields = [
+  const initialModalFields = [
       {
         label: "Name",
         fieldName: "name",
@@ -98,32 +112,38 @@ const page = () => {
         }
     ]
 
-    const initialModalData = 
-      {
-        id: 0,
-        name: "",
-        lastname: "",
-        email: "",
-        gender: "",
-        num_documento: 0,
-        phone_number: 0,
-        status: 1
-      }
-
-      const handleChange = (event) => {
-        // console.log(event.target.name, event.target.value)
-        const { name, value } = event.target
-    
-        setForm({ ...form, [name]: value })
-      }
+    const handleChange = (event) => {
+      const { name, value } = event.target
+  
+      setForm({ ...form, [name]: value })
+    }
 
     const routeList = ["Patients"]
     const routeUrl = "/patients"
 
     useEffect(() => {
+      const getAllPatients = async() => {
+        try {
+          const response = await findAllPersons()
+          // console.log(response);
+
+          if (!response.data) {
+            if (response.code == 1004) {
+              toast.warning(response.message)
+              setPatients(response.data)
+            }
+          }
+
+        } catch(error) {
+            console.log(error)
+        }
+      }
+
+      getAllPatients()
+
       setTableFields(initialTableFields)
       setModalFields(initialModalFields)
-      setPatients(templatePatientsData)
+      // setPatients(templatePatientsData)
       setForm(initialModalData)
     }, [])
     

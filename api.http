@@ -15,3 +15,8 @@ Content-Type: application/json
   "username": "abel_guevara1@budgetapp.com",
   "password": "passwordabel1"
 }
+
+### findAllPersons
+GET http://localhost:8081/codigo/tecsup/v1/persons
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYmVsZ0BnbWFpbC5jb20iLCJyb2xlIjoidXNlciIsImV4cCI6MTcxMTQyNzQxMiwiaWF0IjoxNzExNDI3MjkyfQ.EZn9Bk6MhyTjyOGnzCnZeHLdblwyYQX0qM85LX_w8dE

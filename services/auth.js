@@ -1,5 +1,7 @@
+const API_URL = 'http://localhost:8081/codigo/tecsup/v1/users'
+
 export async function login(form) {
-    const url = 'http://localhost:8081/codigo/tecsup/v1/users/login'
+    const url = API_URL + '/login'
   
     const options = {
       method: 'POST',
@@ -15,7 +17,7 @@ export async function login(form) {
 }
 
 export async function signUp(form) {
-    const url = 'http://localhost:8081/codigo/tecsup/v1/users/signUp'
+    const url = API_URL + '/signUp'
   
     const options = {
       method: 'POST',

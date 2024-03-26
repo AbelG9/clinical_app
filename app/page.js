@@ -5,6 +5,7 @@ import LoginNavbar from "@/components/LoginNavbar";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { login } from "../services/auth";
+import { toast } from "sonner"
 
 export default function Home() {
   const router = useRouter()
@@ -29,12 +30,14 @@ export default function Home() {
 
       if (!response.data) {
         router.push('/')
+        toast.error("Usuario inválido, revise sus credenciales")
         return
       }
 
       localStorage.setItem('auth-token', response.token)
 
       router.push('/patients')
+      toast.info("Bienvenido!")
     } catch(error) {
       console.log(error)
     }

@@ -1,13 +1,23 @@
 import React, { useState } from 'react'
+import { TbLogout } from "react-icons/tb";
+import { useRouter } from 'next/navigation'
+import { toast } from "sonner"
 
 const Navbar = () => {
-    const [openSidebar, setOpenSidebar] = useState(true)
+  const [openSidebar, setOpenSidebar] = useState(true)
+  const router = useRouter()
+
+  const handleLogout = (event) => {
+    localStorage.removeItem('auth-token')
+    router.push('/')
+    toast.info("Hasta pronto!")
+  }
 
   return (
     <>
         <nav className="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-                <a href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
+                <a href="/patients" className="flex items-center space-x-3 rtl:space-x-reverse">
                     <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Clinical App</span>
                 </a>
                 <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
@@ -41,6 +51,14 @@ const Navbar = () => {
                         </li>
                         <li>
                             <a href="#" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Contact</a>
+                        </li>
+                        <li>
+                            <button
+                                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                                onClick={handleLogout}
+                            >
+                                <TbLogout size={22} />
+                            </button>
                         </li>
                     </ul>
                 </div>

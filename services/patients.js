@@ -31,3 +31,21 @@ export async function getReniecInfo(numero) {
 
     return await response.json()
 }
+
+export async function createPatient(form) {
+  const url = API_URL
+  const token = localStorage.getItem('auth-token')
+
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    },
+    body: JSON.stringify(form)
+  }
+
+  const response = await fetch(url, options)
+
+  return await response.json()
+}

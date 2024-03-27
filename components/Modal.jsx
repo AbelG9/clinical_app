@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Modal = ({ toggle, setToggle, fields, form, handleChange, modalTitle }) => {
+const Modal = ({ toggle, setToggle, fields, form, handleChange, modalTitle, handleSubmit }) => {
   return (
     <>
         {/* <!-- Edit user modal --> */}
@@ -13,7 +13,10 @@ const Modal = ({ toggle, setToggle, fields, form, handleChange, modalTitle }) =>
         >
             <div className="relative w-full max-w-2xl max-h-full">
                 {/* <!-- Modal content --> */}
-                <form className="relative bg-white rounded-lg shadow dark:bg-gray-700 mx-auto w-5/6 md:w-full">
+                <form 
+                    className="relative bg-white rounded-lg shadow dark:bg-gray-700 mx-auto w-5/6 md:w-full"
+                    onSubmit={handleSubmit}
+                >
                     {/* <!-- Modal header --> */}
                     <div className="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
                         <h3 className="text-xl font-semibold text-gray-900 dark:text-white">

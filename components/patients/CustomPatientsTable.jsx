@@ -55,10 +55,10 @@ const CustomPatientsTable = ({ fields, data, toggle, setToggle, setModalTitle })
                                       {patient.gender}
                                   </td>
                                   <td className="px-6 py-4">
-                                      {patient.num_documento}
+                                      {patient.numDocument}
                                   </td>
                                   <td className="px-6 py-4">
-                                      {patient.phone_number}
+                                      {patient.phoneNumber}
                                   </td>
                                   <td className="px-6 py-4">
                                       <div className="flex items-center">

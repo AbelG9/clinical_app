@@ -4,14 +4,14 @@ import React, { useEffect, useState } from 'react'
 import BreadCrumb from '@/components/BreadCrumb'
 import CustomPatientsTable from '@/components/patients/CustomPatientsTable'
 import Modal from '@/components/Modal'
-import { findAllPersons } from '@/services/patients'
+import { findAllPersons, getReniecInfo } from '@/services/patients'
 import { toast } from 'sonner'
 
 const page = () => {
   const [patients, setPatients] = useState([])
   const [tableFields, setTableFields] = useState([])
   const [modalFields, setModalFields] = useState([])
-  const [form, setForm] = useState([])
+  
   const [modalTitle, setModalTitle] = useState("")
 
   const initialModalData = 
@@ -26,6 +26,8 @@ const page = () => {
       status: 1
     }
 
+  const [form, setForm] = useState(initialModalData)
+
   const initialTableFields = 
     [
       "index",
@@ -39,14 +41,17 @@ const page = () => {
 
   const initialModalFields = [
       {
+        label: "Document Number",
+        fieldName: "num_documento",
+        type: "number"
+      },
+      {
         label: "Name",
-        fieldName: "name",
-        type: "text"
+        fieldName: "name"
       },
       {
         label: "Last Name",
-        fieldName: "lastname",
-        type: "text"
+        fieldName: "lastname"
       },
       {
         label: "Email",
@@ -55,13 +60,7 @@ const page = () => {
       },
       {
         label: "Gender",
-        fieldName: "gender",
-        type: "text"
-      },
-      {
-        label: "Document Number",
-        fieldName: "num_documento",
-        type: "number"
+        fieldName: "gender"
       },
       {
         label: "Phone Number",
@@ -113,10 +112,26 @@ const page = () => {
         }
     ]
 
-    const handleChange = (event) => {
+    const handleChange = async(event) => {
       const { name, value } = event.target
-  
+
       setForm({ ...form, [name]: value })
+
+      if (name == "num_documento" && value.length == 8) {
+        getReniecInfo(value)
+        .then(data => {
+          if (!data.data) {
+            toast.error("DNI inválido o de un menor de edad")
+            return
+          }
+          setForm({
+            ...form,
+            name: data.data.nombres,
+            lastname: data.data.apellidoPaterno + ' ' + data.data.apellidoMaterno,
+            num_documento: value
+          })
+        })
+      }      
     }
 
     const routeList = ["Patients"]
@@ -133,7 +148,6 @@ const page = () => {
               setPatients(response.data)
             }
           }
-
         } catch(error) {
             console.log(error)
         }
@@ -144,7 +158,6 @@ const page = () => {
       setTableFields(initialTableFields)
       setModalFields(initialModalFields)
       // setPatients(templatePatientsData)
-      setForm(initialModalData)
     }, [])
     
     const [toggle, setToggle] = useState(false)

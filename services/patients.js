@@ -15,3 +15,19 @@ export async function findAllPersons() {
   
     return await response.json()
 }
+
+export async function getReniecInfo(numero) {
+    const url = API_URL + '/reniec/' + numero
+    const token = localStorage.getItem('auth-token')
+
+    const options = {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+    }
+
+    const response = await fetch(url, options)
+
+    return await response.json()
+}

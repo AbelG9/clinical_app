@@ -19,4 +19,22 @@ Content-Type: application/json
 ### findAllPersons
 GET http://localhost:8081/codigo/tecsup/v1/persons
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYmVsZ0BnbWFpbC5jb20iLCJyb2xlIjoidXNlciIsImV4cCI6MTcxMTQyNzQxMiwiaWF0IjoxNzExNDI3MjkyfQ.EZn9Bk6MhyTjyOGnzCnZeHLdblwyYQX0qM85LX_w8dE
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYmVsZ0BnbWFpbC5jb20iLCJyb2xlIjoidXNlciIsImV4cCI6MTcxMTQ3MTE0NywiaWF0IjoxNzExNDcxMDI3fQ.RvofgGklMUWsuuwzUhU1A9uXVRZSI-GGoUTmrk_uo2g
+
+### createPersons
+POST http://localhost:8081/codigo/tecsup/v1/persons
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYmVsZ0BnbWFpbC5jb20iLCJyb2xlIjoidXNlciIsImV4cCI6MTcxMTQ5MTcwMywiaWF0IjoxNzExNDkxNDAzfQ.zZKwlOE87CQ0hkp5es3Jtm_3DQkA-jqMteEnglHIJnM
+
+{
+    "numDocument": "46464646",
+    "email": "abelg@gmail.com",
+    "phoneNumber": "954874151",
+    "gender": "male",
+    "documentTypeId": 1
+}
+
+### getReniecInfo
+GET http://localhost:8081/codigo/tecsup/v1/persons/reniec/04620092
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYmVsZ0BnbWFpbC5jb20iLCJyb2xlIjoidXNlciIsImV4cCI6MTcxMTQ5MTkwNSwiaWF0IjoxNzExNDkxNjA1fQ.JyaQDmBQ7OEZTALukZt5D2sIu1QaizKIBQ6qgJtFsAU

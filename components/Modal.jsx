@@ -47,7 +47,7 @@ const Modal = ({ toggle, setToggle, fields, form, handleChange, modalTitle }) =>
                                                 {field.label}
                                             </label>
                                             <input 
-                                                type={field.type} 
+                                                type={!field.type ? "text" : field.type } 
                                                 name={field.fieldName} 
                                                 id={field.fieldName} 
                                                 className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
@@ -55,6 +55,7 @@ const Modal = ({ toggle, setToggle, fields, form, handleChange, modalTitle }) =>
                                                 value={form[field.fieldName]}
                                                 onChange={handleChange}
                                                 required={true} 
+                                                disabled={field.disabled}
                                             />
                                         </div>
                                     )

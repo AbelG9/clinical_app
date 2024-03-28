@@ -30,14 +30,14 @@ export default function Home() {
 
       if (!response.data) {
         router.push('/')
-        toast.error("Usuario inválido, revise sus credenciales")
+        toast.error("User invalid")
         return
       }
 
       localStorage.setItem('auth-token', response.data)
 
       router.push('/patients')
-      toast.info("Bienvenido!")
+      toast.info("Welcome!")
     } catch(error) {
       console.log(error)
     }

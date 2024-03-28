@@ -4,8 +4,9 @@ import React, { useEffect, useState } from 'react'
 import BreadCrumb from '@/components/BreadCrumb'
 import CustomPatientsTable from '@/components/patients/CustomPatientsTable'
 import Modal from '@/components/Modal'
-import { findAllPersons, getReniecInfo, createPatient } from '@/services/patients'
+import { findAllPersons, getReniecInfo, createPatient, udpatePatient, deletePatient } from '@/services/patients'
 import { toast } from 'sonner'
+import Swal from 'sweetalert2'
 
 const page = () => {
   const [patients, setPatients] = useState([])
@@ -13,9 +14,11 @@ const page = () => {
   const [modalFields, setModalFields] = useState([])
   
   const [modalTitle, setModalTitle] = useState("")
+  const [toggle, setToggle] = useState(false)
 
   const initialPatientData = 
     {
+      idPersons: null,
       name: "",
       lastname: "",
       email: "",
@@ -29,7 +32,7 @@ const page = () => {
 
   const initialTableFields = 
     [
-      "index",
+      "id",
       "patient",
       "gender",
       "document",
@@ -69,6 +72,11 @@ const page = () => {
         type: "number"
       }
     ]
+
+    const closeModal = () => {
+      setToggle(!toggle)
+      setForm(initialPatientData)
+    }
 
     const getAllPatients = async() => {
       try {
@@ -112,19 +120,62 @@ const page = () => {
       event.preventDefault();
 
       try {
-        const response = await createPatient(form)
+        var response = {}
+        console.log(form);
+        if (form.idPersons) {
+          const formUpdate =
+            {
+              numDocument: form.numDocument,
+              email: form.email,
+              phoneNumber: form.phoneNumber,
+              gender: form.gender,
+              documentTypeId: 1,
+              userId: form.idPersons
+            }
+          response = await udpatePatient(formUpdate)
+        } else {
+          response = await createPatient(form)
+        }
         if (!response.data) {
-          toast.error("Datos inválidos")
+          toast.error("Data invalid")
           return
         }
     
-        toast.success("Paciente guardado exitosamente!")
+        form.idPersons? toast.success("Data modified successfully") : toast.success("Patient saved successfully!")
         setToggle(false)
         setForm(initialPatientData)
         getAllPatients()
       } catch(error) {
         console.log(error)
       }
+    }
+
+    const handleDelete = async(id) => {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "Do you want to delete this patient?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then(async(result) => {
+        if (result.isConfirmed) {
+          try {
+            const response = await deletePatient(id)
+            console.log(response);
+            if (!response.data) {
+              toast.error('It couldnt be deleted!')
+            }
+            toast.success('Patient deleted successfully.')
+            getAllPatients()
+          } catch(error) {
+              console.log(error)
+          }
+
+          }
+        }
+      );
     }
 
     const routeList = ["Patients"]
@@ -136,15 +187,13 @@ const page = () => {
       setTableFields(initialTableFields)
       setModalFields(initialModalFields)
     }, [])
-    
-    const [toggle, setToggle] = useState(false)
 
   return (
     <>
         <BreadCrumb routeList={routeList} routeUrl={routeUrl}/>
         <Modal 
           toggle={toggle} 
-          setToggle={setToggle}
+          closeModal={closeModal}
           fields={modalFields}
           form={form}
           handleChange={handleChange}
@@ -157,6 +206,8 @@ const page = () => {
           toggle={toggle} 
           setToggle={setToggle}
           setModalTitle={setModalTitle}
+          setForm={setForm}
+          handleDelete={handleDelete}
         />
     </>
   )

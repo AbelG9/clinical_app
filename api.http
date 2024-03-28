@@ -38,3 +38,21 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYmVsZ0BnbWFpbC5jb20iLCJyb
 GET http://localhost:8081/codigo/tecsup/v1/persons/reniec/04620092
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYmVsZ0BnbWFpbC5jb20iLCJyb2xlIjoidXNlciIsImV4cCI6MTcxMTQ5MTkwNSwiaWF0IjoxNzExNDkxNjA1fQ.JyaQDmBQ7OEZTALukZt5D2sIu1QaizKIBQ6qgJtFsAU
+
+### updatePersons
+PATCH http://localhost:8081/codigo/tecsup/v1/persons/8
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYmVsZ0BnbWFpbC5jb20iLCJyb2xlIjoidXNlciIsImV4cCI6MTcxMTU1OTA1MiwiaWF0IjoxNzExNTU4NzUyfQ.mHXedk6lvpvB4SuNlZfaFRz1ukwe6RIEcp2KguKfsRI
+
+{
+    "numDocument": "46390543",
+    "email": "aguevara@budgetapp.com",
+    "phoneNumber": "987654321",
+    "gender": "Male",
+    "documentTypeId": 1
+}
+
+### deletePatients
+DELETE http://localhost:8081/codigo/tecsup/v1/persons/9
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYmVsZ0BnbWFpbC5jb20iLCJyb2xlIjoidXNlciIsImV4cCI6MTcxMTU2OTM1OSwiaWF0IjoxNzExNTY5MDU5fQ.SayCjMLrMVXJB4x9tstPQZMQMu4hnaRzDJ2sB1337y4

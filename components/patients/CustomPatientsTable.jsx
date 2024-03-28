@@ -1,6 +1,7 @@
 import React from 'react'
+import { TbPencil, TbTrashX } from 'react-icons/tb';
 
-const CustomPatientsTable = ({ fields, data, toggle, setToggle, setModalTitle }) => {
+const CustomPatientsTable = ({ fields, data, toggle, setToggle, setModalTitle, setForm, handleDelete }) => {
     return (
       <>
       {
@@ -8,7 +9,7 @@ const CustomPatientsTable = ({ fields, data, toggle, setToggle, setModalTitle })
         (
           <div className='px-1 md:px-16 lg:px-20'>
               <div className="flex items-center rounded-lg justify-between flex-column md:flex-row flex-wrap space-y-4 md:space-y-0 py-4 bg-white dark:bg-gray-900 mb-1">
-                  <div className="relative ml-3">
+                  <div className="relative mx-auto md:ml-3">
                       <div className="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
                           <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                               <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
@@ -20,6 +21,19 @@ const CustomPatientsTable = ({ fields, data, toggle, setToggle, setModalTitle })
                         className="block p-1 ps-10 text-sm w-60 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
                         placeholder="Search" 
                       />
+                  </div>
+                  <div className="relative mx-auto md:mr-3">
+                    <button 
+                        data-modal-hide="default-modal" 
+                        type="submit" 
+                        className="flex justify-center items-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        onClick={() => {
+                            setToggle(!toggle);
+                            setModalTitle("New patient");
+                        }}
+                    >
+                        Save new patient
+                    </button>
                   </div>
               </div>
               <div className="overflow-x-auto shadow-md sm:rounded-lg">
@@ -43,7 +57,7 @@ const CustomPatientsTable = ({ fields, data, toggle, setToggle, setModalTitle })
                           return (
                               <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600" key={index}>
                                   <td className="text-center">
-                                      {index + 1}
+                                      {patient.idPersons}
                                   </td>
                                   <th scope="row" className="flex items-center px-2 py-4 text-gray-900 whitespace-nowrap dark:text-white">
                                       <div className="ps-3">
@@ -68,19 +82,31 @@ const CustomPatientsTable = ({ fields, data, toggle, setToggle, setModalTitle })
                                           {patient.status == 1 ? 'Activo' : 'Inactivo'}
                                       </div>
                                   </td>
-                                  <td className="px-6 py-4">
+                                  <td className="px-6 pt-2 flex flex-wrap items-center justify-between">
                                       {/* <!-- Modal toggle --> */}
                                       <a 
                                           href="#" 
                                           type="button" 
                                           data-modal-show="editPatientModal" 
-                                          className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                                          className="justify-center font-medium text-blue-600 dark:text-blue-500 hover:underline"
                                           onClick={() => {
                                             setToggle(!toggle);
                                             setModalTitle("Edit patient");
-                                            }}
+                                            setForm(patient)
+                                          }}
                                         >
-                                            Edit
+                                            <TbPencil size={24} />
+                                      </a>
+                                      <a 
+                                          href="#" 
+                                          type="button" 
+                                          data-modal-show="deletePatientModal" 
+                                          className="font-medium text-red-600 dark:text-red-500 hover:underline"
+                                          onClick={() => {
+                                            handleDelete(patient.idPersons)
+                                          }}
+                                        >
+                                            <TbTrashX size={24} />
                                       </a>
                                   </td>
                               </tr>

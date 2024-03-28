@@ -10,7 +10,7 @@ const Navbar = () => {
   const handleLogout = (event) => {
     localStorage.removeItem('auth-token')
     router.push('/')
-    toast.info("Hasta pronto!")
+    toast.info("See you soon!")
   }
 
   return (
